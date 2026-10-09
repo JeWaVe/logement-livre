@@ -1,0 +1,156 @@
+/* style.css — édition HTML du livre (mobile d'abord, filigrane).
+   Palette : brique #C12A24 (charte), encre #1a1814, gris de la charte. */
+
+:root {
+  --encre: #1a1814;
+  --brique: #c12a24;
+  --grismoyen: #8a8580;
+  --grisclair: #d9d4cb;
+  --papier: #fdfcfa;
+}
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--papier);
+  color: var(--encre);
+  font-family: Georgia, "Times New Roman", "Liberation Serif", serif;
+  font-size: 17px;
+  line-height: 1.65;
+}
+
+/* --- Filigrane : calque fixe plein écran, répété en diagonale --- */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 60;
+  background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc0ODAnIGhlaWdodD0nMzIwJz48dGV4dCB4PScyNDAnIHk9JzE2MCcgdHJhbnNmb3JtPSdyb3RhdGUoLTMwIDI0MCAxNjApJyB0ZXh0LWFuY2hvcj0nbWlkZGxlJyBmb250LWZhbWlseT0nR2VvcmdpYSxzZXJpZicgZm9udC1zaXplPScxNycgZmlsbD0nIzFhMTgxNCcgZmlsbC1vcGFjaXR5PScwLjA4NSc+wqkgUsOpZ2lzIFBvcnRhbGV6IOKAlCDDqXByZXV2ZSBkZSByZWxlY3R1cmU8L3RleHQ+PC9zdmc+");
+  background-size: 480px 320px;
+}
+@media print {
+  body::after { position: absolute; min-height: 100%; }
+}
+
+main {
+  max-width: 42rem;
+  margin: 0 auto;
+  padding: 0 16px 2rem;
+}
+
+/* --- Titres --- */
+h1, h2, h3 { line-height: 1.25; font-weight: 700; }
+h1 { font-size: 1.7rem; margin: 0.6rem 0 1.2rem; }
+h2 { font-size: 1.25rem; margin-top: 2.2rem; }
+h3 { font-size: 1.05rem; margin-top: 1.6rem; }
+/* Le numéro du chapitre est porté par le surtitre (« Chapitre N ») : on
+   masque le numéro que pandoc met devant le h1, mais pas ceux des sections. */
+h1 > .header-section-number { display: none; }
+h2 > .header-section-number, h3 > .header-section-number { color: var(--grismoyen); margin-right: 0.35em; }
+
+.kicker {
+  margin: 1.6rem 0 0;
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--grismoyen);
+}
+
+/* --- Texte --- */
+p { margin: 0 0 1em; text-align: justify; hyphens: auto; -webkit-hyphens: auto; }
+a { color: var(--brique); text-decoration: none; }
+a:hover { text-decoration: underline; }
+blockquote {
+  margin: 1.2em 0 1.2em 1em;
+  padding-left: 1em;
+  border-left: 3px solid var(--grisclair);
+  color: #3a3733;
+}
+.epigraph {
+  margin: 0 0 2rem auto;
+  max-width: 85%;
+  font-style: italic;
+  color: #3a3733;
+  font-size: 0.95rem;
+}
+.epigraph p:last-child { text-align: right; font-style: normal; font-size: 0.88rem; }
+
+/* --- Figures --- */
+figure { margin: 1.8rem 0; text-align: center; }
+figure img, p img { max-width: 100%; height: auto; }
+figcaption {
+  margin-top: 0.6rem;
+  font-size: 0.86rem;
+  color: #3a3733;
+  text-align: left;
+}
+
+/* --- Tableaux --- */
+table { border-collapse: collapse; margin: 1.5rem auto; font-size: 0.92rem; display: block; overflow-x: auto; }
+th, td { padding: 0.35em 0.7em; border-bottom: 1px solid var(--grisclair); text-align: left; }
+thead th { border-bottom: 2px solid var(--encre); }
+
+/* --- Notes de bas de page --- */
+a.footnote-ref { text-decoration: none; font-size: 0.8em; }
+section.footnotes {
+  margin-top: 3rem;
+  font-size: 0.88rem;
+  color: #3a3733;
+}
+section.footnotes::before {
+  content: "Notes";
+  display: block;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--encre);
+  margin-bottom: 0.8rem;
+}
+section.footnotes hr { display: none; }
+section.footnotes li { margin-bottom: 0.5em; }
+
+/* --- Bibliographie (page dédiée) --- */
+#refs .csl-entry { margin-bottom: 0.7em; padding-left: 1.4em; text-indent: -1.4em; text-align: left; }
+
+/* --- Navigation entre chapitres --- */
+nav.chapnav {
+  max-width: 42rem;
+  margin: 0 auto;
+  padding: 0.7rem 16px;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  font-size: 0.9rem;
+  font-family: system-ui, sans-serif;
+}
+nav.chapnav.top { border-bottom: 1px solid var(--grisclair); }
+nav.chapnav.bottom { border-top: 1px solid var(--grisclair); margin-top: 2rem; }
+nav.chapnav .spacer { flex: 1; }
+nav.chapnav a { white-space: nowrap; }
+
+footer.colophon {
+  max-width: 42rem;
+  margin: 0 auto;
+  padding: 1rem 16px 2.5rem;
+  font-size: 0.8rem;
+  color: var(--grismoyen);
+  font-family: system-ui, sans-serif;
+}
+
+/* --- Couverture (index.html) --- */
+.cover { text-align: center; margin: 3rem 0 2.5rem; }
+.cover .titre { font-size: 1.9rem; font-weight: 700; line-height: 1.2; margin: 0 0 1rem; }
+.cover .motdordre { font-style: italic; font-size: 1.05rem; color: #3a3733; margin: 0 0 1.2rem; }
+.cover .auteur { font-variant: small-caps; font-size: 1.1rem; letter-spacing: 0.05em; }
+.cover .exergue { margin: 2.5rem auto 0; max-width: 80%; font-style: italic; font-size: 0.92rem; color: #3a3733; }
+.toc { list-style: none; padding: 0; }
+.toc > li { margin: 0.45em 0; }
+.toc .partie {
+  margin-top: 1.6em;
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--grismoyen);
+}
+.toc .num { color: var(--grismoyen); display: inline-block; min-width: 1.7em; }
