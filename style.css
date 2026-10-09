@@ -107,6 +107,9 @@ section.footnotes::before {
   color: var(--encre);
   margin-bottom: 0.8rem;
 }
+html[lang="de"] section.footnotes::before { content: "Anmerkungen"; }
+html[lang="es"] section.footnotes::before { content: "Notas"; }
+html[lang="it"] section.footnotes::before { content: "Note"; }
 section.footnotes hr { display: none; }
 section.footnotes li { margin-bottom: 0.5em; }
 
@@ -128,6 +131,32 @@ nav.chapnav.top { border-bottom: 1px solid var(--grisclair); }
 nav.chapnav.bottom { border-top: 1px solid var(--grisclair); margin-top: 2rem; }
 nav.chapnav .spacer { flex: 1; }
 nav.chapnav a { white-space: nowrap; }
+
+/* --- Barre de langues --- */
+nav.langbar {
+  max-width: 42rem;
+  margin: 0 auto;
+  padding: 0.45rem 16px 0;
+  font-size: 0.78rem;
+  font-family: system-ui, sans-serif;
+  color: var(--grismoyen);
+  text-align: right;
+}
+nav.langbar a { color: var(--grismoyen); }
+nav.langbar strong { color: var(--encre); font-weight: 600; }
+
+/* --- Mention traduction IA --- */
+.iamention {
+  margin: 1.2rem 0 0;
+  font-size: 0.78rem;
+  font-family: system-ui, sans-serif;
+  color: var(--grismoyen);
+  border: 1px solid var(--grisclair);
+  border-radius: 4px;
+  padding: 0.3rem 0.6rem;
+  text-align: center;
+}
+footer.colophon .iamention { all: unset; }
 
 footer.colophon {
   max-width: 42rem;
